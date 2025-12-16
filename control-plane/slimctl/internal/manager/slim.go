@@ -24,14 +24,20 @@ type manager struct {
 	Logger   *zap.Logger
 	Secret   string
 	Endpoint string
+	Port     string
 }
 
 // NewManager creates a new Manager. If logger is nil, a no-op logger is used.
-func NewManager(logger *zap.Logger, secret string, endpoint string) Manager {
+func NewManager(logger *zap.Logger, secret, endpoint, port string) Manager {
 	if logger == nil {
 		logger = zap.NewNop()
 	}
-	return &manager{Logger: logger, Secret: secret, Endpoint: endpoint}
+	return &manager{
+		Logger:   logger,
+		Secret:   secret,
+		Endpoint: endpoint,
+		Port:     port,
+	}
 }
 
 // Start starts the local slim instance.
