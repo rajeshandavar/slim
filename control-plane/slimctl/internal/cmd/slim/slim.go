@@ -29,7 +29,6 @@ func NewSlimCmd(ctx context.Context, appConfig *cfg.AppConfig) *cobra.Command {
 
 // NewStartCmd creates the 'start' command.
 func NewStartCmd(appConfig *cfg.AppConfig) *cobra.Command {
-	var secret string
 	var endpoint string
 	var port string
 
@@ -42,12 +41,11 @@ func NewStartCmd(appConfig *cfg.AppConfig) *cobra.Command {
 			if endpoint == "" {
 				endpoint = "127.0.0.1:" + port
 			}
-			mgr := manager.NewManager(appConfig.CommonOpts.Logger, secret, endpoint, port)
+			mgr := manager.NewManager(appConfig.CommonOpts.Logger, endpoint, port)
 			return mgr.Start(c.Context())
 		},
 	}
 
-	startCmd.Flags().StringVar(&secret, "secret", "", "Secret for the SLIM instance")
 	startCmd.Flags().StringVar(&endpoint, "endpoint", "", "Endpoint to bind (default: 127.0.0.1:<port>)")
 	startCmd.Flags().StringVar(&port, "port", "8080", "Port to listen on")
 
@@ -61,7 +59,7 @@ func NewStopCmd(appConfig *cfg.AppConfig) *cobra.Command {
 		Short: "Stop the SLIM instance",
 		Long:  `Stop the SLIM instance`,
 		RunE: func(c *cobra.Command, args []string) error {
-			mgr := manager.NewManager(appConfig.CommonOpts.Logger, "", "", "")
+			mgr := manager.NewManager(appConfig.CommonOpts.Logger, "", "")
 			return mgr.Stop(c.Context())
 		},
 	}
@@ -74,7 +72,7 @@ func NewStatusCmd(appConfig *cfg.AppConfig) *cobra.Command {
 		Short: "Get the status of the SLIM instance",
 		Long:  `Get the status of the SLIM instance`,
 		RunE: func(c *cobra.Command, args []string) error {
-			mgr := manager.NewManager(appConfig.CommonOpts.Logger, "", "", "")
+			mgr := manager.NewManager(appConfig.CommonOpts.Logger, "", "")
 			status, err := mgr.Status(c.Context())
 			if err != nil {
 				return fmt.Errorf("failed to get status: %w", err)

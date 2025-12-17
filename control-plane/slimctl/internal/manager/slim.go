@@ -12,6 +12,9 @@ import (
 	"go.uber.org/zap"
 )
 
+// defaultSecret is used for local development/testing purposes.
+const defaultSecret = "slimctl-dev-secret-do-not-use-in-production"
+
 // Manager defines management operations for a local slim instance.
 type Manager interface {
 	Start(ctx context.Context) error
@@ -22,19 +25,17 @@ type Manager interface {
 // Service is the default implementation of Manager.
 type manager struct {
 	Logger   *zap.Logger
-	Secret   string
 	Endpoint string
 	Port     string
 }
 
 // NewManager creates a new Manager. If logger is nil, a no-op logger is used.
-func NewManager(logger *zap.Logger, secret, endpoint, port string) Manager {
+func NewManager(logger *zap.Logger, endpoint, port string) Manager {
 	if logger == nil {
 		logger = zap.NewNop()
 	}
 	return &manager{
 		Logger:   logger,
-		Secret:   secret,
 		Endpoint: endpoint,
 		Port:     port,
 	}
@@ -53,7 +54,7 @@ func (s *manager) Start(ctx context.Context) error {
 		Id:         nil,
 	}
 
-	app, err := slim.CreateAppWithSecret(serverName, s.Secret)
+	app, err := slim.CreateAppWithSecret(serverName, defaultSecret)
 	if err != nil {
 		s.Logger.Error("failed to create server app", zap.Error(err))
 		return fmt.Errorf("failed to create server app: %w", err)
