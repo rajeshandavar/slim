@@ -2,7 +2,6 @@ package slim
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/spf13/cobra"
 
@@ -50,35 +49,4 @@ func NewStartCmd(appConfig *cfg.AppConfig) *cobra.Command {
 	startCmd.Flags().StringVar(&port, "port", "8080", "Port to listen on")
 
 	return startCmd
-}
-
-// NewStopCmd creates the 'stop' command.
-func NewStopCmd(appConfig *cfg.AppConfig) *cobra.Command {
-	return &cobra.Command{
-		Use:   "stop",
-		Short: "Stop the SLIM instance",
-		Long:  `Stop the SLIM instance`,
-		RunE: func(c *cobra.Command, args []string) error {
-			mgr := manager.NewManager(appConfig.CommonOpts.Logger, "", "")
-			return mgr.Stop(c.Context())
-		},
-	}
-}
-
-// NewStatusCmd creates the 'status' command.
-func NewStatusCmd(appConfig *cfg.AppConfig) *cobra.Command {
-	return &cobra.Command{
-		Use:   "status",
-		Short: "Get the status of the SLIM instance",
-		Long:  `Get the status of the SLIM instance`,
-		RunE: func(c *cobra.Command, args []string) error {
-			mgr := manager.NewManager(appConfig.CommonOpts.Logger, "", "")
-			status, err := mgr.Status(c.Context())
-			if err != nil {
-				return fmt.Errorf("failed to get status: %w", err)
-			}
-			fmt.Printf("SLIM instance status: %s\n", status)
-			return nil
-		},
-	}
 }
