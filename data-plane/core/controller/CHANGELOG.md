@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0](https://github.com/agntcy/slim/compare/slim-controller-v0.4.3...slim-controller-v0.5.0) - 2025-12-19
+
+### Added
+
+- make backoff retry configurable ([#991](https://github.com/agntcy/slim/pull/991))
+
+### Fixed
+
+- *(controller)* start the controller service only if the related config is provided ([#1054](https://github.com/agntcy/slim/pull/1054))
+- *(bindings)* improve identity error handling ([#1042](https://github.com/agntcy/slim/pull/1042))
+
+### Other
+
+- unified typed error handling across core crates ([#976](https://github.com/agntcy/slim/pull/976))
+
 ## [0.4.3](https://github.com/agntcy/slim/compare/slim-controller-v0.4.2...slim-controller-v0.4.3) - 2025-11-21
 
 ### Fixed
