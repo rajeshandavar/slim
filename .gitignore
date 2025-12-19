@@ -127,3 +127,4 @@ coverage.out
 control-plane/common/controller/schema.json
 control-plane/control-plane/db/controlplane.db
 libslim_bindings.dylib
+libslim_bindings.a
