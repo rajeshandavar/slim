@@ -11,6 +11,11 @@ includes:
     taskfile: ../tasks/tools.yaml
     flatten: true
 
+  go-bindings:
+    taskfile: ../data-plane/bindings/go/Taskfile.yaml
+    dir: ../data-plane/bindings/go
+
+
 vars:
   REPO_ROOT:
     sh: git rev-parse --show-toplevel
@@ -194,10 +199,12 @@ tasks:
     desc: Build go binaries
     deps:
       - control-plane:modtidy
+      - go-bindings:generate
     cmds:
       - task: control-plane:control-plane:build
       - task: control-plane:token-service:build
       - task: control-plane:slimctl:build
+
 
 
   #  control plane related tasks
