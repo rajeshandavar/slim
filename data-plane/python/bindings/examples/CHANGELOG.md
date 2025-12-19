@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.2](https://github.com/agntcy/slim/compare/slim-bindings-examples-v0.7.1...slim-bindings-examples-v0.7.2) (2025-12-19)
+
+
+### Features
+
+* **session:** handle moderator unexpected stop ([#1024](https://github.com/agntcy/slim/issues/1024)) ([d82f7c4](https://github.com/agntcy/slim/commit/d82f7c459c224f6530bc0d2b596a38f8b1d1fd73))
+* Update group state on unexpected application stop ([#1014](https://github.com/agntcy/slim/issues/1014)) ([2385cfb](https://github.com/agntcy/slim/commit/2385cfbe694c4d2a0f047ff10b640885d81f6be2))
+
+
+### Bug Fixes
+
+* **session:** remove participants from the group list ([#1059](https://github.com/agntcy/slim/issues/1059)) ([e8577aa](https://github.com/agntcy/slim/commit/e8577aa3142c8a0e1da6b2a317be553e7b7c10f7))
+
 ## [0.7.1](https://github.com/agntcy/slim/compare/slim-bindings-examples-v0.7.0...slim-bindings-examples-v0.7.1) (2025-11-21)
 
 
