@@ -11,7 +11,7 @@ vars:
   # Get absolute path for CGO flags
   ROOT_DIR:
     sh: pwd
-  LIB_PATH: "{{.ROOT_DIR}}/{{.SERVICE_TARGET}}/lib{{.LIB_NAME}}.dylib"
+  LIB_PATH: "{{.ROOT_DIR}}/{{.SERVICE_TARGET}}/lib{{.LIB_NAME}}.a"
   LIB_DIR: "{{.ROOT_DIR}}/{{.SERVICE_TARGET}}"
   CGO_LDFLAGS: "-L{{.LIB_DIR}} -l{{.LIB_NAME}}"
   DYLD_PATH: "{{.LIB_DIR}}:{{.ENV.DYLD_LIBRARY_PATH}}"
@@ -49,7 +49,7 @@ tasks:
       - echo "🔧 Generating Go bindings from compiled library..."
       - |
         uniffi-bindgen-go \
-          --library '{{.SERVICE_TARGET}}/lib{{.LIB_NAME}}.dylib' \
+          --library '{{.SERVICE_TARGET}}/lib{{.LIB_NAME}}.a' \
           --out-dir generated
       - cd generated && go mod init github.com/agntcy/slim/bindings/generated 2>/dev/null || true
       - task: patch-cgo-directives
@@ -100,7 +100,7 @@ tasks:
     internal: true
     cmds:
       - echo "📦 Copying shared library..."
-      - cp "{{.SERVICE_TARGET}}/lib{{.LIB_NAME}}.dylib" "generated/{{.LIB_NAME}}/" 2>/dev/null || true
+      - cp "{{.SERVICE_TARGET}}/lib{{.LIB_NAME}}.a" "generated/{{.LIB_NAME}}/" 2>/dev/null || true
       - cp "{{.SERVICE_TARGET}}/lib{{.LIB_NAME}}.so" "generated/{{.LIB_NAME}}/" 2>/dev/null || true
       - echo "✅ Library copied to generated/{{.LIB_NAME}}/"
     silent: true
